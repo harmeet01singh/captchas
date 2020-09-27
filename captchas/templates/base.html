@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <title> {% block title %}{% endblock %} </title>
+</head>
+<body>
+    <nav class="navbar bg-dark navbar-expand-lg navbar-dark shadow">
+        <a href="/" class="navbar-brand">Captchas</a>
+
+        <div class="navbar-nav ml-auto mr-auto">
+            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link" href="/funmath">Fundamental Math</a>
+            <a class="nav-link" href="/word">Word Issue</a>
+            <a class="nav-link" href="/time">Time-Based</a>
+            <a class="nav-link" href="/nocaptcha">No Captcha</a>
+            <a class="nav-link" href="/invisible">Invisible </a>
+            <a class="nav-link" href="/confident">Confident </a>
+            <a class="nav-link" href="/slider">Slider</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

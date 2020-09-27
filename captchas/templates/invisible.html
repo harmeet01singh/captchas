@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Invisible Captcha
+{% endblock %}
+
+{% block content %}
+    {% include 'form.html' %}
+    {% block captcha %}
+    {% endblock %}
+{% endblock %}

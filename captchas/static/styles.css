@@ -1,0 +1,30 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: floralwhite;
+}
+
+input[type=range]{
+    pointer-events: none;
+}
+
+input[type=range]::-webkit-slider-thumb{
+    pointer-events: auto;
+}
+
+input[type=range]::-moz-range-thumb{
+    pointer-events: auto;
+}
+
+input[type=range]::-ms-thumb{
+    pointer-events: auto;
+}
+
+.container{
+    height: 100vh;
+    min-width: 100%;
+}
+
+.jumbotron{
+    margin-top: 225px;
+}
