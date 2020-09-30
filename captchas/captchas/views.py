@@ -1,5 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from urllib.request import urlopen, Request
+from urllib.parse import urlencode, quote_plus
+import json
+import requests
 
 def home(request):
     return render(request, 'home.html')
@@ -14,7 +18,32 @@ def time_based(request):
     return render(request, 'time.html')
 
 def recaptcha(request):
-    return render(request, 'recaptcha.html')
+
+    if request.method == 'POST':
+
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        # url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': '6LcyDtIZAAAAAIulaWoXgZwDzcmjHbEnVL1bEdeQ',
+            'response': recaptcha_response
+        }
+        data = urlencode(values, quote_via=quote_plus).encode("utf-8")
+        # req = Request(url, data)
+        # with urlopen(req) as f:
+        #     result = json.load(f)
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', params = data)
+        response = r.json()
+
+        print(response['success'])
+        if response['success']:
+            return render(request, 'success.html')
+        
+        else:
+            message = 'Invalid reCAPTCHA. Please try again.'
+            return render(request, 'recaptcha.html', { 'message': message })
+
+    else:
+        return render(request, 'recaptcha.html')
 
 def invisible(request):
     return render(request, 'invisible.html')
@@ -37,3 +66,6 @@ def confident(request):
 
 def slider(request):
     return render(request, 'slider.html')
+
+def success(request):
+    return render(request, 'success,html')

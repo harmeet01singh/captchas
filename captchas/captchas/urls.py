@@ -10,7 +10,8 @@ urlpatterns = [
     path('recaptcha', views.recaptcha),
     path('invisible', views.invisible),
     path('confident', views.confident),
-    path('slider',views.slider)
+    path('slider',views.slider),
+    path('success',views.success)
 ]
 
 urlpatterns += staticfiles_urlpatterns()
