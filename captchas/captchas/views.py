@@ -13,8 +13,8 @@ def word_issue(request):
 def time_based(request):
     return render(request, 'time.html')
 
-def no_captcha(request):
-    return render(request, 'nocaptcha.html')
+def recaptcha(request):
+    return render(request, 'recaptcha.html')
 
 def invisible(request):
     return render(request, 'invisible.html')

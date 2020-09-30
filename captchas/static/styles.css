@@ -1,7 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-color: floralwhite;
+    background: url("static/bg.jpg");
 }
 
 input[type=range]{

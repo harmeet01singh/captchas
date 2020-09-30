@@ -7,7 +7,7 @@ urlpatterns = [
     path('funmath',views.fun_math),
     path('word', views.word_issue),
     path('time', views.time_based),
-    path('nocaptcha', views.no_captcha),
+    path('recaptcha', views.recaptcha),
     path('invisible', views.invisible),
     path('confident', views.confident),
     path('slider',views.slider)

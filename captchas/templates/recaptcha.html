@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    No Captcha
+    ReCaptcha
 {% endblock %}
 
 {% block content %}
     {% include 'form.html' %}
             <div class="form-group">
                 <!-- Enter Captcha Code After This Line -->
+                
+                <div class="g-recaptcha" data-sitekey="6Le9ENIZAAAAADprBbQPbMuj94-uliDji-rmNz4u"></div>
 
                 <!-- Enter Captcha Code Before This Line -->
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">Submit</button>
+
             </div>
         </form>
     </div>
