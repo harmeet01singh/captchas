@@ -28,3 +28,8 @@ input[type=range]::-ms-thumb{
 .jumbotron{
     margin-top: 225px;
 }
+
+.img195{
+  height: 70px;
+  width: 70px;
+}
