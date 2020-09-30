@@ -22,19 +22,17 @@ def recaptcha(request):
     if request.method == 'POST':
 
         recaptcha_response = request.POST.get('g-recaptcha-response')
-        # url = 'https://www.google.com/recaptcha/api/siteverify'
         values = {
-            'secret': '6LcyDtIZAAAAAIulaWoXgZwDzcmjHbEnVL1bEdeQ',
+            'secret': '6Le9ENIZAAAAALhQvsqSxA5zxljbFuvxCMUtZ_6-',
             'response': recaptcha_response
         }
-        data = urlencode(values, quote_via=quote_plus).encode("utf-8")
-        # req = Request(url, data)
-        # with urlopen(req) as f:
-        #     result = json.load(f)
-        r = requests.post('https://www.google.com/recaptcha/api/siteverify', params = data)
+        
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', params = values)
+        print(r.url)
         response = r.json()
 
-        print(response['success'])
+        print(response)
+
         if response['success']:
             return render(request, 'success.html')
         
