@@ -35,7 +35,7 @@ def recaptcha(request):
 
         if response['success']:
             return render(request, 'success.html')
-        
+
         else:
             message = 'Invalid reCAPTCHA. Please try again.'
             return render(request, 'recaptcha.html', { 'message': message })
@@ -63,7 +63,10 @@ def confident(request):
     return render(request, 'confident.html', params)
 
 def slider(request):
-    return render(request, 'slider.html')
+    if request.method == 'POST':
+        return render(request, 'success.html')
+    else:
+        return render(request, 'slider.html')
 
 def success(request):
     return render(request, 'success,html')
