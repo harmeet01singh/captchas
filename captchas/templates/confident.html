@@ -9,48 +9,16 @@
             <div class="form-group">
                 <!-- Enter Captcha Code After This Line -->
                 
-                      <div class="container" id="confcap" style="max-width: 750px; height: auto">
-                      <div class="row">
-                            <div class="col col-4 img-thumbnail">
-                                <input type="checkbox" name="img-1-st" class="status">
-                                <img class="img195" src="{{ links.0 }}">
+                      <div class="container" id="confcap">
+                        <div class="row flex-end">
+                            {% for link in links %}
+                            <div class="col col-4">
+                                <input type="checkbox" name="img{{forloop.counter0}}" id="img{{forloop.counter0}}" class="status">
+                                <label for="img{{forloop.counter0}}" class="status-label"><img class="conimg" src="{{ link }}"></label>
                             </div>
-                            <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-2-st" class="status" >
-                                <img class="img195" src="{{ links.1 }}">
-                            </div>
-                            <div class="col col-4 img-thumbnail">
-                                <input type="checkbox" name="img-3-st" class="status">
-                                <img class="img195" src="{{ links.2 }}">
-                            </div>
-                             <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-4-st" class="status">
-                              <img class="img195" src="{{ links.3 }}">
-                            </div>
-                            <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-5-st" class="status">
-                              <img class="img195" src="{{ links.4 }}">
-                            </div>
-                            <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-6-st" class="status">
-                              <img class="img195" src="{{ links.5 }}">
-                            </div>
-                            <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-7-st" class="status">
-                              <img class="img195" src="{{ links.6 }}">
-                            </div>
-                            <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-8-st" class="status">
-                              <img class="img195" src="{{ links.7 }}">
-                            </div>
-                            <div class="col col-4 img-thumbnail">
-                              <input type="checkbox" name="img-9-st" class="status">
-                              <img class="img195" src="{{ links.8 }}">
-                            </div>
+                            {% endfor %}
+                        </div>
                       </div>
-                      </div>
-
-
                 <!-- Enter Captcha Code Before This Line -->
             </div>
             <div class="form-group">
@@ -59,19 +27,22 @@
         </form>
     </div>
     <div class="col"></div>
+    </div>
     <script type="text/javascript" >
         $(function($){
             $("#submitButton").attr("disabled",true);
-            $("#confcap").change(function(){
-                $("#submitButton").attr("disabled",true);
-                if($('.status:checked') !== null){
-                    $("#submitButton").attr("disabled",false);
-                }
-                if(document.querySelectorAll('#status:checked') == false){
+            $(".status").change(function(){
+                if ($('.status:checked').length >= 1) {
+                    $("#submitButton").removeAttr("disabled");
+                }else {
                     $("#submitButton").attr("disabled",true);
                 }
-            })
+            });
+
         });
+    </script>
+    <script>
+        
     </script>
 </div>
 {% endblock %}

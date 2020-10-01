@@ -1,7 +1,6 @@
 body{
     margin: 0px;
     padding: 0px;
-    background: url("static/bg.jpg");
 }
 
 input[type=range]{
@@ -20,7 +19,7 @@ input[type=range]::-ms-thumb{
     pointer-events: auto;
 }
 
-.container{
+#main-container{
     height: 100vh;
     min-width: 100%;
 }
@@ -29,7 +28,3 @@ input[type=range]::-ms-thumb{
     margin-top: 225px;
 }
 
-.img195{
-  height: 70px;
-  width: 70px;
-}
