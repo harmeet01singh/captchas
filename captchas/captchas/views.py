@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from urllib.request import urlopen, Request
-from urllib.parse import urlencode, quote_plus
+import datetime
 import json
 import requests
+
+start = 0
 
 def home(request):
     return render(request, 'home.html')
@@ -15,7 +16,20 @@ def word_issue(request):
     return render(request, 'wordIssue.html')
 
 def time_based(request):
-    return render(request, 'time.html')
+    global start
+
+    if request.method == 'POST':
+        response = datetime.datetime.strptime(datetime.datetime.now().strftime('%H:%M:%S'), '%H:%M:%S') - start
+        
+        if response >= datetime.timedelta(seconds=5):
+            return render(request, 'success.html')
+        else:
+            message = 'Response time is less then 5 seconds. Bot detected'
+            return render(request, 'time.html', { 'message': message })
+    
+    else:
+        start = datetime.datetime.strptime(datetime.datetime.now().strftime('%H:%M:%S'), '%H:%M:%S')
+        return render(request, 'time.html')
 
 def recaptcha(request):
 
