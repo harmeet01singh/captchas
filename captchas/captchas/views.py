@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from urllib.request import urlopen, Request
-from urllib.parse import urlencode, quote_plus
+import datetime
 import json
 import requests
+import random
+
+start = 0
 
 def home(request):
     return render(request, 'home.html')
@@ -15,7 +17,20 @@ def word_issue(request):
     return render(request, 'wordIssue.html')
 
 def time_based(request):
-    return render(request, 'time.html')
+    global start
+
+    if request.method == 'POST':
+        response = datetime.datetime.strptime(datetime.datetime.now().strftime('%H:%M:%S'), '%H:%M:%S') - start
+        
+        if response >= datetime.timedelta(seconds=5):
+            return render(request, 'success.html')
+        else:
+            message = 'Response time is less then 5 seconds. Bot detected'
+            return render(request, 'time.html', { 'message': message })
+    
+    else:
+        start = datetime.datetime.strptime(datetime.datetime.now().strftime('%H:%M:%S'), '%H:%M:%S')
+        return render(request, 'time.html')
 
 def recaptcha(request):
 
@@ -48,18 +63,32 @@ def invisible(request):
 
 def confident(request):
 
-    link0 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
-    link1 = 'https://miro.medium.com/max/1200/1*1OBwwxzJksMv0YDD-XmyBw.png'
-    link2 = 'https://banner2.cleanpng.com/20180604/pol/kisspng-react-javascript-angularjs-ionic-atom-5b154be6709500.6532453515281223424611.jpg'
-    link3 = 'https://banner2.cleanpng.com/20180920/hq/kisspng-laravel-software-framework-web-framework-php-zend-laravel-software-framework-php-web-framework-model-5ba3437deb19e7.104986071537426301963.jpg'
-    link4 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png'
-    link5 = 'https://www.oracle.com/a/ocom/img/hp11-intl-java-logo.jpg'
-    link6 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKWkic1-VG_92r8ZiioV4mRwveI8HHpQiHDg&usqp=CAU'
-    link7 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
-    link8 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
+    #link0 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
+    #link1 = 'https://miro.medium.com/max/1200/1*1OBwwxzJksMv0YDD-XmyBw.png'
+    #link1 = 'https://source.unsplash.com/1600x900/?building'
+    #link2 = 'https://banner2.cleanpng.com/20180604/pol/kisspng-react-javascript-angularjs-ionic-atom-5b154be6709500.6532453515281223424611.jpg'
+    #link3 = 'https://banner2.cleanpng.com/20180920/hq/kisspng-laravel-software-framework-web-framework-php-zend-laravel-software-framework-php-web-framework-model-5ba3437deb19e7.104986071537426301963.jpg'
+    #link4 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png'
+    #link5 = 'https://www.oracle.com/a/ocom/img/hp11-intl-java-logo.jpg'
+    #link6 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKWkic1-VG_92r8ZiioV4mRwveI8HHpQiHDg&usqp=CAU'
+    #link7 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
+    #link8 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
 
-    links = [link0, link1, link2, link3, link4, link5, link6, link7, link8]
-    params = {'object': 'default', 'links': links}
+    workset1 = ['lake','forest','Houses','motorcycles','trains','smartphones','fruits','highway','sportscar']
+    img_gen = ['https://loremflickr.com/200/200/','https://source.unsplash.com/200x200/?']
+    keywordset = []
+    links = []
+
+    for i in range(9):
+        keyword = random.choice(workset1)
+        link = random.choice(img_gen)+keyword
+        keywordset.append(keyword)
+        links.append(link)
+
+
+    #links = [link0, link1, link2, link3, link4, link5, link6, link7, link8]
+    category = random.choice(keywordset)
+    params = {'object': 'default', 'links': links, 'category':category}
     return render(request, 'confident.html', params)
 
 def slider(request):
@@ -70,3 +99,7 @@ def slider(request):
 
 def success(request):
     return render(request, 'success,html')
+
+
+
+    

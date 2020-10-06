@@ -8,12 +8,15 @@
     {% include 'form.html' %}
             <div class="form-group">
                 <!-- Enter Captcha Code After This Line -->
-                
+                      <label for="confcap">Select the images with {{ category }}</label>
                       <div class="container" id="confcap" style="max-width: 750px; height: auto">
                       <div class="row">
                             <div class="col col-4 img-thumbnail">
-                                <input type="checkbox" name="img-1-st" class="status">
-                                <img class="img195" src="{{ links.0 }}">
+                                <label for="img1">
+                                  <img class="img195" src="{{ links.0 }}">
+                                </label>
+                                <input type="checkbox" id='img1' name="img-1-st" class="status">
+                                
                             </div>
                             <div class="col col-4 img-thumbnail">
                               <input type="checkbox" name="img-2-st" class="status" >
