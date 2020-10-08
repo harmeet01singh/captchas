@@ -4,6 +4,11 @@ import datetime
 import json
 import requests
 import random
+from PIL import ImageFont, ImageDraw, Image
+import numpy as np
+import cv2
+import string
+from captcha.audio import AudioCaptcha
 
 start = 0
 
@@ -11,10 +16,63 @@ def home(request):
     return render(request, 'home.html')
 
 def fun_math(request):
+    # Setting up the canvas
+    #size = random.randint(10,16)
+    #length = random.randint(4,8)
+    #img = np.zeros(((size*2)+5, length*size, 3), np.uint8)
+    #img_pil = Image.fromarray(img+255)
+
+    #font = ImageFont.truetype(font='arial', size =size)
+    #draw = ImageDraw.Draw(img_pil)
+    #text = ''.join(
+    #    random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) 
+    #            for _ in range(length))
+    #draw.text((5, 10), text, font=font, 
+    #        fill=(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+    
+    #cv2.imwrite(f"./static/funMath.png", img) #if you want to save the image
+    #params = {'text': text}
+    #return render(request, 'funMath.html', params)
     return render(request, 'funMath.html')
 
 def word_issue(request):
-    return render(request, 'wordIssue.html')
+    # Setting up the canvas
+    size = random.randint(10,16)
+    length = random.randint(4,8)
+    img = np.zeros(((size*2)+5, length*size, 3), np.uint8)
+    img_pil = Image.fromarray(img+255)
+
+    # Drawing text and lines
+    font = ImageFont.truetype(font='arial', size =size)
+    draw = ImageDraw.Draw(img_pil)
+    text = ''.join(
+        random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) 
+                for _ in range(length))
+    draw.text((5, 10), text, font=font, 
+            fill=(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+    draw.line([(random.choice(range(length*size)), random.choice(range((size*2)+5)))
+            ,(random.choice(range(length*size)), random.choice(range((size*2)+5)))]
+            , width=1, fill=(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
+
+    # Adding noise and blur
+    img = np.array(img_pil)
+    thresh = random.randint(1,5)/100
+    for i in range(img.shape[0]):
+        for j in range(img.shape[1]):
+            rdn = random.random()
+            if rdn < thresh:
+                img[i][j] = random.randint(0,123)
+            elif rdn > 1-thresh:
+                img[i][j] = random.randint(123,255)
+    img = cv2.blur(img,(int(size/random.randint(4,8)),int(size/random.randint(4,8))))
+    
+    #Displaying image
+    #cv2.imshow(f"{text}", img)
+    #cv2.waitKey()
+    #cv2.destroyAllWindows()
+    cv2.imwrite(f"./static/wordissue.png", img) #if you want to save the image
+    params = {'text': text}
+    return render(request, 'wordIssue.html', params)
 
 def time_based(request):
     global start
@@ -58,21 +116,15 @@ def recaptcha(request):
     else:
         return render(request, 'recaptcha.html')
 
-def invisible(request):
-    return render(request, 'invisible.html')
+def audio(request):
+    captcha_text = str(random.randint(1000,9999))
+    audio_captcha = AudioCaptcha()
+    audio_data = audio_captcha.generate(captcha_text)
+    audio_captcha.write(captcha_text,'./static/cap.wav')
+    params = {'captcha_text':captcha_text}
+    return render(request, 'audio.html', params)
 
 def confident(request):
-
-    #link0 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
-    #link1 = 'https://miro.medium.com/max/1200/1*1OBwwxzJksMv0YDD-XmyBw.png'
-    #link1 = 'https://source.unsplash.com/1600x900/?building'
-    #link2 = 'https://banner2.cleanpng.com/20180604/pol/kisspng-react-javascript-angularjs-ionic-atom-5b154be6709500.6532453515281223424611.jpg'
-    #link3 = 'https://banner2.cleanpng.com/20180920/hq/kisspng-laravel-software-framework-web-framework-php-zend-laravel-software-framework-php-web-framework-model-5ba3437deb19e7.104986071537426301963.jpg'
-    #link4 = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/600px-Python-logo-notext.svg.png'
-    #link5 = 'https://www.oracle.com/a/ocom/img/hp11-intl-java-logo.jpg'
-    #link6 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTKWkic1-VG_92r8ZiioV4mRwveI8HHpQiHDg&usqp=CAU'
-    #link7 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
-    #link8 = 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/012015/bootstrap.png?itok=GTbtFeUj'
 
     workset1 = ['lake','forest','Houses','motorcycles','trains','smartphones','fruits','highway','sportscar']
     img_gen = ['https://loremflickr.com/200/200/','https://source.unsplash.com/200x200/?']

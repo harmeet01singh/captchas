@@ -8,7 +8,7 @@ urlpatterns = [
     path('word', views.word_issue),
     path('time', views.time_based),
     path('recaptcha', views.recaptcha),
-    path('invisible', views.invisible),
+    path('audio', views.audio),
     path('confident', views.confident),
     path('slider',views.slider),
     path('success',views.success)
