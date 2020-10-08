@@ -21,10 +21,10 @@ def time_based(request):
     if request.method == 'POST':
         response = datetime.datetime.strptime(datetime.datetime.now().strftime('%H:%M:%S'), '%H:%M:%S') - start
         
-        if response >= datetime.timedelta(seconds=5):
+        if response >= datetime.timedelta(seconds=10):
             return render(request, 'success.html')
         else:
-            message = 'Response time is less then 5 seconds. Bot detected'
+            message = 'Response time is less then 10 seconds. Bot detected'
             return render(request, 'time.html', { 'message': message })
     
     else:
