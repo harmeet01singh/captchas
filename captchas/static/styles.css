@@ -1,4 +1,4 @@
-body{
+*{
     margin: 0px;
     padding: 0px;
 }
@@ -24,7 +24,7 @@ input[type=range]::-ms-thumb{
     min-width: 100%;
 }
 
-.jumbotron{
+#form{
     margin-top: 225px;
 }
 

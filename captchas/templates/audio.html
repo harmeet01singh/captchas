@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Word Issue
+    Invisible Captcha
 {% endblock %}
 
 {% block content %}
     {% include 'form.html' %}
-            <div class="form-group">
-                {{text}}
+            <div class="form-group mt-2">
                 <!-- Enter Captcha Code After This Line -->
-                
-                <img src="./static/wordissue.png" style="width: 200px" alt=""><br>
-                <p class="mt-4">Enter Captcha Text:    </p>
+                <p>Enter what you hear in the following input box {{captcha_text}}</p>
+                <audio controls>
+                    <source src="./static/cap.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                </audio><br>
                 <input type="text" name="captcha-text">
                 <!-- Enter Captcha Code Before This Line -->
             </div>
@@ -21,5 +22,5 @@
         </form>
     </div>
     <div class="col"></div>
-</div>    
+</div>
 {% endblock %}

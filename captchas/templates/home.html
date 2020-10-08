@@ -5,5 +5,23 @@
 {% endblock %}
 
 {% block content %}
-    
+    <div style="margin-top: 100px;"></div>
+    {% for captcha in captchas %}
+        <div class="row">
+            <div class="col"></div>
+            <div class="col col-8">
+                <div class="row jumbotron">
+                    <div class="col" style="display: flex; align-items: center; justify-content: center;">
+                        <img src="{{ captcha.image }}" class="card-img-top">
+                    </div>
+                    <div class="col col-8">
+                        <h1 class="display-4">{{ captcha.name }}</h1>
+                        <p class="lead">{{ captcha.description }}</p>
+                        <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+    {% endfor %}
 {% endblock %}

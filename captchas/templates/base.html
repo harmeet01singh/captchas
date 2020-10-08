@@ -11,18 +11,29 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <title> {% block title %}{% endblock %} </title>
     <style>
+        html {
+            height: 100%;
+        }
+        body {
+            height: 100%;
+            margin: 0;
+            background: linear-gradient(45deg, #22046b, #e14e42);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        
         .conimg{
-    height: 100px;
-    width: 100px;
-}
+            height: 100px;
+            width: 100px;
+        }
 
-    .status{
-        appearance: none;
-    }
+        .status{
+            appearance: none;
+        }
 
-    .status:checked + label{
-        transform: scale(0.9,0.9);
-    }
+        .status:checked + label{
+            transform: scale(0.9,0.9);
+        }
     </style>
 </head>
 <body>
@@ -30,14 +41,14 @@
         <a href="/" class="navbar-brand">Captchas</a>
 
         <div class="navbar-nav ml-auto mr-auto">
-            <a class="nav-link" href="/">Home</a>
-            <a class="nav-link" href="/funmath">Fundamental Math</a>
-            <a class="nav-link" href="/word">Word Issue</a>
-            <a class="nav-link" href="/time">Time-Based</a>
-            <a class="nav-link" href="/recaptcha">ReCaptcha</a>
-            <a class="nav-link" href="/invisible">Invisible </a>
-            <a class="nav-link" href="/confident">Confident </a>
-            <a class="nav-link" href="/slider">Slider</a>
+            <a class="nav-link active" href="/">Home</a>
+            <a class="nav-link active" href="/funmath">Fundamental Math</a>
+            <a class="nav-link active" href="/word">Word Issue</a>
+            <a class="nav-link active" href="/time">Time-Based</a>
+            <a class="nav-link active" href="/recaptcha">ReCaptcha</a>
+            <a class="nav-link active" href="/audio">Audio</a>
+            <a class="nav-link active" href="/confident">Confident </a>
+            <a class="nav-link active" href="/slider">Slider</a>
         </div>
     </nav>
 
