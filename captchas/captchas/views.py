@@ -57,21 +57,15 @@ def home(request):
     return render(request, 'home.html', { 'captchas': captchas })
 
 def fun_math(request):
-    # size = random.randint(10,16)
-    # length = random.randint(4,8)
-    # img = np.zeros(((size*2)+5, length*size, 3), np.uint8)
-    # img_pil = Image.fromarray(img+255)
-
-    # font = ImageFont.truetype(font='arial', size =size)
-    # draw = ImageDraw.Draw(img_pil)
-    # text = ''.join(
-    #    random.choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) 
-    #            for _ in range(length))
-    # draw.text((5, 10), text, font=font, 
-    #        fill=(random.randint(0,255), random.randint(0,255), random.randint(0,255)))
     
-    # cv2.imwrite(f"./static/funMath.png", img) #if you want to save the image
-    # params = {'text': text}
+    img = np.zeros(shape=(25,60,3),dtype=np.uint8)
+    img_pil = Image.fromarray(img+255)
+    draw = ImageDraw.Draw(img_pil)
+    font = ImageFont.truetype(font='arial',size=15)
+    t = str(random.randint(0,9)) +' '+ str(random.choice(['*','-','+'])) +' '+ str(random.randint(0,9))
+    draw.text((6,6),text=t,font=font,fill=(0,0,0))
+
+    cv2.imwrite(f"./static/funMath.png", np.array(img_pil))
     return render(request, 'funMath.html')
 
 def word_issue(request):
@@ -114,10 +108,6 @@ def word_issue(request):
                 img[i][j] = random.randint(123,255)
     # img = cv2.blur(img,(int(size/random.randint(4,8)),int(size/random.randint(4,8))))
     rtext = text
-    #Displaying image
-    #cv2.imshow(f"{text}", img)
-    #cv2.waitKey()
-    #cv2.destroyAllWindows()
     cv2.imwrite(f"./static/wordissue.png", img)
     return render(request, 'wordIssue.html')
 
