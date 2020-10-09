@@ -13,6 +13,7 @@ from captcha.audio import AudioCaptcha
 start = 0
 rtext = ''
 atext = ''
+ftext = ''
 
 def home(request):
     captchas = [
@@ -57,13 +58,24 @@ def home(request):
     return render(request, 'home.html', { 'captchas': captchas })
 
 def fun_math(request):
-    
+    global ftext
+
+    if request.method == 'POST':
+        response = request.POST.get("captcha-text")
+        
+        if int(response) == ftext:
+            return render(request, 'success.html')
+        else:
+            return render(request, 'funMath.html', { 'message': 'Try Again' })
+
     img = np.zeros(shape=(25,60,3),dtype=np.uint8)
     img_pil = Image.fromarray(img+255)
     draw = ImageDraw.Draw(img_pil)
-    font = ImageFont.truetype(font='arial',size=15)
+    font = ImageFont.truetype('./static/arial.ttf',size=15)
     t = str(random.randint(0,9)) +' '+ str(random.choice(['*','-','+'])) +' '+ str(random.randint(0,9))
     draw.text((6,6),text=t,font=font,fill=(0,0,0))
+    ftext = eval(t)
+    print(ftext)
 
     cv2.imwrite(f"./static/funMath.png", np.array(img_pil))
     return render(request, 'funMath.html')
